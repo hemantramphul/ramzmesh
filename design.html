@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>model — 3D Model</title>
+    <style>
+      :root {
+        --bg: #f5f5f7;
+        --text: #1d1d1f;
+        --muted: #4a4a4a;
+        --accent: #1caad9;
+        --card: #ffffff;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #111214;
+          --text: #f2f2f2;
+          --muted: #a0a0a0;
+          --card: #111214;
+        }
+      }
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      html,
+      body {
+        height: 100%;
+      }
+      body {
+        font-family:
+          system-ui,
+          -apple-system,
+          "Segoe UI",
+          Roboto,
+          sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        display: flex;
+        flex-direction: column;
+        min-height: 100vh;
+      }
+      header {
+        padding: 20px 16px 12px;
+        text-align: center;
+      }
+      header h1 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+      }
+      header p {
+        color: var(--muted);
+        font-size: 0.95rem;
+        margin-top: 4px;
+      }
+      main {
+        flex: 1;
+        display: flex;
+        padding: 0 16px 16px;
+      }
+      .sketchfab-embed-wrapper {
+        --mask-top: 60px;
+        --mask-bottom: 52px;
+        position: relative;
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        max-width: 1400px;
+        margin: 0 auto;
+        background: var(--card);
+        /* border-radius: 14px; */
+        overflow: hidden;
+        box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
+      }
+      .sketchfab-embed-wrapper iframe {
+        flex: 1;
+        width: 100%;
+        min-height: 70vh;
+        border: 0;
+        display: block;
+      }
+      /* Masks covering Sketchfab's header and footer bars (cross-origin, so they can't be styled directly) */
+      .embed-mask {
+        position: absolute;
+        left: 0;
+        right: 0;
+        z-index: 1;
+        background: var(--card);
+      }
+      .embed-mask--top {
+        top: 0;
+        height: var(--mask-top);
+      }
+      .embed-mask--bottom {
+        bottom: 0;
+        height: var(--mask-bottom);
+      }
+      .credit {
+        font-size: 13px;
+        color: var(--muted);
+        padding: 10px 14px;
+      }
+      .credit a {
+        font-weight: 700;
+        color: var(--accent);
+        text-decoration: none;
+      }
+      .credit a:hover {
+        text-decoration: underline;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <div class="sketchfab-embed-wrapper">
+        <iframe
+          title="riio"
+          frameborder="0"
+          allowfullscreen
+          mozallowfullscreen="true"
+          webkitallowfullscreen="true"
+          allow="autoplay; fullscreen; xr-spatial-tracking"
+          xr-spatial-tracking
+          execution-while-out-of-viewport
+          execution-while-not-rendered
+          web-share
+          src="https://sketchfab.com/models/5b9a36175f8f443e8d051cc8bf6ffa50/embed?autospin=0.5&autostart=1&ui_infos=0&ui_controls=0&ui_stop=0"
+        >
+        </iframe>
+        <div class="embed-mask embed-mask--top" aria-hidden="true"></div>
+        <div class="embed-mask embed-mask--bottom" aria-hidden="true"></div>
+      </div>
+    </main>
+  </body>
+</html>
