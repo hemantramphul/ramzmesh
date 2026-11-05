@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>riio — 3D Viewer</title>
+    <link rel="stylesheet" href="assets/css/style.css" />
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "./assets/js/vendor/three/three.module.js",
+          "three/addons/": "./assets/js/vendor/three/addons/",
+          "three-mesh-bvh": "./assets/js/vendor/three-mesh-bvh/index.module.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- ================= 3D VIEWER ================= -->
+      <div id="viewer">
+        <div id="hotspots"></div>
+
+        <div class="view-tools">
+          <button
+            class="icon-btn"
+            data-action="reset"
+            title="Reset view"
+            aria-label="Reset view"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M3 11l9-8 9 8" />
+              <path d="M5 10v10h14V10" />
+            </svg>
+          </button>
+          <button
+            class="icon-btn"
+            data-action="autorotate"
+            title="Auto-rotate"
+            aria-label="Auto-rotate"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M21 12a9 9 0 1 1-2.64-6.36" />
+              <path d="M21 3v6h-6" />
+            </svg>
+          </button>
+          <button
+            class="icon-btn edit-only"
+            data-action="axis"
+            title="Switch up axis (Z-up / Y-up)"
+            aria-label="Switch up axis"
+          >
+            <span id="axis-label">Z↑</span>
+          </button>
+          <button
+            class="icon-btn"
+            data-action="fullscreen"
+            title="Fullscreen"
+            aria-label="Fullscreen"
+          >
+            <svg
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5" />
+            </svg>
+          </button>
+        </div>
+
+        <div id="hint" hidden>
+          <span id="hint-text">Click on the model to place an annotation</span>
+          <button class="mini" data-action="cancel-place">Cancel</button>
+        </div>
+
+        <div id="popup" hidden>
+          <div class="popup-head">
+            <span class="num edit-only" id="popup-num">1</span>
+            <h3 id="popup-title"></h3>
+            <button
+              class="mini edit-only"
+              data-action="close"
+              aria-label="Close annotation"
+            >
+              ✕
+            </button>
+          </div>
+          <p id="popup-text"></p>
+          <div class="popup-foot edit-only">
+            <button class="btn small" data-action="prev">‹ Prev</button>
+            <span id="popup-count"></span>
+            <button class="btn small edit-only" data-action="edit">Edit</button>
+            <button class="btn small" data-action="next">Next ›</button>
+          </div>
+        </div>
+
+        <div id="loader" class="overlay" hidden>
+          <div>
+            <div class="spinner"></div>
+            <p style="margin-top: 12px">Loading model…</p>
+          </div>
+        </div>
+
+        <div id="empty" class="overlay" hidden>
+          <div class="card">
+            <svg
+              width="40"
+              height="40"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#1caad9"
+              stroke-width="1.6"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+            >
+              <path d="M12 2l9 5v10l-9 5-9-5V7z" />
+              <path d="M12 22V12M21 7l-9 5-9-5" />
+            </svg>
+            <h2>No model loaded</h2>
+            <p class="edit-only">
+              Open an STL file, or drag and drop it anywhere on this page.
+            </p>
+            <p class="view-only">The 3D model couldn't be loaded.</p>
+            <button class="btn primary edit-only" data-action="open-stl">
+              Open STL file
+            </button>
+            <p class="small edit-only" id="file-note" hidden></p>
+          </div>
+        </div>
+
+        <div id="drop" class="overlay">
+          Drop your .stl (or annotations.json) here
+        </div>
+        <div id="toast" role="status" aria-live="polite"></div>
+      </div>
+
+      <!-- ================= SIDE PANEL ================= -->
+      <aside id="panel" class="edit-only">
+        <div class="panel-head">
+          <h1 id="title">riio</h1>
+          <div class="sub">
+            <span id="model-name">No model</span> ·
+            <span id="count">0 annotations</span>
+          </div>
+        </div>
+
+        <div class="toolbar edit-only">
+          <button class="btn primary" id="btn-add" data-action="add">
+            <span id="btn-add-label">+ Add annotation</span>
+          </button>
+          <button class="btn" data-action="open-stl">Open STL</button>
+          <button class="btn" data-action="import">Import</button>
+          <button class="btn" data-action="export">Export</button>
+        </div>
+
+        <ol id="list"></ol>
+
+        <div class="panel-foot">
+          <div>Drag to rotate · Scroll to zoom · Right-drag to pan</div>
+          <div class="edit-only">
+            Annotations save in this browser automatically. Use <b>Export</b> to
+            get <code>annotations.json</code> for your site.
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- ================= ANNOTATION EDITOR ================= -->
+    <dialog id="editor">
+      <form id="editor-form">
+        <h2 id="editor-heading">New annotation</h2>
+        <label for="f-title">Title</label>
+        <input
+          id="f-title"
+          type="text"
+          maxlength="120"
+          placeholder="e.g. Power button"
+          autocomplete="off"
+        />
+        <label for="f-text">Description</label>
+        <textarea
+          id="f-text"
+          placeholder="What should people know about this spot?"
+        ></textarea>
+        <label class="check" id="f-view-row"
+          ><input id="f-view" type="checkbox" /> Save the current camera angle
+          for this annotation</label
+        >
+        <div class="dialog-actions">
+          <button type="button" class="btn danger" id="btn-delete">
+            Delete
+          </button>
+          <button type="button" class="btn" id="btn-move">Move point</button>
+          <span class="spacer"></span>
+          <button type="button" class="btn" id="btn-cancel">Cancel</button>
+          <button type="submit" class="btn primary">Save</button>
+        </div>
+      </form>
+    </dialog>
+
+    <input type="file" id="stl-input" accept=".stl" hidden />
+    <input type="file" id="json-input" accept=".json,application/json" hidden />
+
+    <script type="module" src="assets/js/main.js"></script>
+  </body>
+</html>
