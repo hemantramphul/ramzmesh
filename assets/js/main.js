@@ -11,16 +11,22 @@ import {
 /* =========================================================
        SETTINGS — change these for your project
        ========================================================= */
+// ?file=hiiro loads stl/hiiro/model.stl + stl/hiiro/annotations.json (plain folder names only);
+// without it the page starts empty, ready to open a new STL
+const fileParam = new URLSearchParams(location.search).get("file") ?? "";
+const FILE = /^[\w-]+$/.test(fileParam) ? fileParam : "";
+
 const CONFIG = {
-  title: "model", // shown in the panel and the browser tab
-  modelUrl: "stl/riio/model.stl", // your STL, placed next to this file
-  annotationsUrl: "stl/riio/annotations.json", // exported annotations, placed next to this file
+  title: FILE || "model", // shown in the panel and the browser tab
+  modelUrl: FILE && `stl/${FILE}/model.stl`, // your STL, placed next to this file
+  annotationsUrl: FILE && `stl/${FILE}/annotations.json`, // exported annotations, placed next to this file
   zUp: true, // most CAD / 3D-printing STLs are Z-up
   modelColor: "#c9ccd3",
   annotationZoom: 0.6, // how close the camera gets to an opened annotation (× model radius; smaller = closer)
   editable: true, // set to false before publishing so visitors only view
 };
 // URL tips: add ?edit to edit on a published page, or ?view to preview what visitors see.
+// e.g. model.html?view&file=hiiro
 
 // Fast raycasting for big STLs (placing points + hiding hotspots behind the model)
 THREE.BufferGeometry.prototype.computeBoundsTree = computeBoundsTree;
@@ -722,7 +728,8 @@ async function loadFromUrl(url) {
     const res = await fetch(url);
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const geometry = loader.parse(await res.arrayBuffer());
-    setModel(geometry, decodeURIComponent(url.split("/").pop().split("?")[0]));
+    // "hiiro/model.stl": every folder's file is model.stl, so keep the folder in the name (it keys saved drafts)
+    setModel(geometry, decodeURIComponent(url.split("/").slice(-2).join("/").split("?")[0]));
     await loadAnnotations(true);
   } catch (err) {
     console.warn(`Could not load ${url}`, err);
@@ -902,12 +909,21 @@ function loop(now) {
 requestAnimationFrame(loop);
 
 /* ---------- Start ---------- */
-if (location.protocol === "file:") {
+if (location.protocol === "file:" && CONFIG.modelUrl) {
   const note = $("#file-note");
   note.innerHTML =
     "To load <code></code> automatically, open this page through a web server instead of double-clicking it.";
   note.querySelector("code").textContent = CONFIG.modelUrl;
   note.hidden = false;
 }
+// Visitors see the model turning until they open an annotation
+if (!EDIT) {
+  controls.autoRotate = true;
+  autoBtn.classList.add("on");
+}
 setAxis(CONFIG.zUp);
-loadFromUrl(CONFIG.modelUrl);
+if (CONFIG.modelUrl) loadFromUrl(CONFIG.modelUrl);
+else {
+  renderAnnotations();
+  showEmpty(true);
+}
