@@ -411,6 +411,7 @@ function updateHotspots(now) {
   if (popup.classList.contains("anchored") !== anchor) {
     popup.classList.toggle("anchored", anchor);
     popup.style.transform = popup.style.visibility = "";
+    popupAt = null;
   }
   const placePopup = anchor && !popup.hidden;
   const pw = placePopup ? popup.offsetWidth : 0,
@@ -463,6 +464,7 @@ function updateHotspots(now) {
 }
 
 // Place the popup just right of the hotspot (left when it doesn't fit), its title level with the point
+let popupAt = null; // unrounded position last applied
 function positionPopup(x, y, visible, pw, ph, w, h) {
   popup.style.visibility = visible ? "" : "hidden";
   if (!visible) return;
@@ -471,6 +473,11 @@ function positionPopup(x, y, visible, pw, ph, w, h) {
   const flip = x + gap + pw > w - m && x - gap - pw >= m;
   const left = Math.max(m, Math.min(flip ? x - gap - pw : x + gap, w - pw - m));
   const top = Math.max(m, Math.min(y - 22, h - ph - m));
+  // Skip sub-pixel changes: a point sitting on a half pixel (odd-sized viewer) would
+  // otherwise round 1px back and forth while the camera settles, making the popup shake
+  if (popupAt && Math.abs(left - popupAt.left) < 0.6 && Math.abs(top - popupAt.top) < 0.6)
+    return;
+  popupAt = { left, top };
   popup.style.transform = `translate(${Math.round(left)}px, ${Math.round(top)}px)`;
 }
 
