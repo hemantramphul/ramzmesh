@@ -494,7 +494,9 @@ class OrbitControls extends EventDispatcher {
 
 		function getZoomScale( delta ) {
 
-			const normalized_delta = Math.abs( delta ) / ( 100 * ( window.devicePixelRatio | 0 ) );
+			// Patched to match later three.js releases: r160 divided by `devicePixelRatio | 0`, which is 0
+			// when the page is zoomed out (ratio < 1), so one wheel step jumped to the min/max distance
+			const normalized_delta = Math.abs( delta * 0.01 );
 			return Math.pow( 0.95, scope.zoomSpeed * normalized_delta );
 
 		}
