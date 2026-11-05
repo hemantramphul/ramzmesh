@@ -17,7 +17,7 @@ const fileParam = new URLSearchParams(location.search).get("file") ?? "";
 const FILE = /^[\w-]+$/.test(fileParam) ? fileParam : "";
 
 const CONFIG = {
-  title: FILE || "model", // shown in the panel and the browser tab
+  title: FILE, // shown in the panel and the browser tab once the model loads
   modelUrl: FILE && `stl/${FILE}/model.stl`, // your STL, placed next to this file
   annotationsUrl: FILE && `stl/${FILE}/annotations.json`, // exported annotations, placed next to this file
   zUp: true, // most CAD / 3D-printing STLs are Z-up
@@ -36,7 +36,6 @@ THREE.Mesh.prototype.raycast = acceleratedRaycast;
 const params = new URLSearchParams(location.search);
 const EDIT = !params.has("view") && (CONFIG.editable || params.has("edit"));
 document.body.classList.toggle("editing", EDIT);
-document.title = `${CONFIG.title} — 3D Viewer`;
 
 const $ = (sel) => document.querySelector(sel);
 const viewer = $("#viewer");
@@ -44,7 +43,7 @@ const hotspotLayer = $("#hotspots");
 const popup = $("#popup");
 const list = $("#list");
 const dlg = $("#editor");
-$("#title").textContent = CONFIG.title;
+showTitle("");
 
 /* ---------- Scene ---------- */
 let flight = null;
@@ -122,10 +121,21 @@ function setModel(geometry, name) {
   scene.add(mesh);
   modelName = name;
   $("#model-name").textContent = name;
+  // Buttons that need a model
+  $("#btn-add").hidden = false;
+  $('[data-action="import"]').disabled = false;
+  $('[data-action="export"]').disabled = false;
   showEmpty(false);
   closePopup();
   setPlaceMode(null);
   setAxis(CONFIG.zUp);
+}
+
+// The tab and panel show the model's name once one is loaded, just "RamzMesh" before
+function showTitle(name) {
+  document.title = name ? `RamzMesh - ${name}` : "RamzMesh";
+  $("#title").textContent = name;
+  $("#title").hidden = !name;
 }
 
 // Center the model and scale it to a standard size. Transforms live on the mesh,
@@ -475,7 +485,11 @@ function positionPopup(x, y, visible, pw, ph, w, h) {
   const top = Math.max(m, Math.min(y - 22, h - ph - m));
   // Skip sub-pixel changes: a point sitting on a half pixel (odd-sized viewer) would
   // otherwise round 1px back and forth while the camera settles, making the popup shake
-  if (popupAt && Math.abs(left - popupAt.left) < 0.6 && Math.abs(top - popupAt.top) < 0.6)
+  if (
+    popupAt &&
+    Math.abs(left - popupAt.left) < 0.6 &&
+    Math.abs(top - popupAt.top) < 0.6
+  )
     return;
   popupAt = { left, top };
   popup.style.transform = `translate(${Math.round(left)}px, ${Math.round(top)}px)`;
@@ -736,7 +750,11 @@ async function loadFromUrl(url) {
     if (!res.ok) throw new Error(`HTTP ${res.status}`);
     const geometry = loader.parse(await res.arrayBuffer());
     // "hiiro/model.stl": every folder's file is model.stl, so keep the folder in the name (it keys saved drafts)
-    setModel(geometry, decodeURIComponent(url.split("/").slice(-2).join("/").split("?")[0]));
+    setModel(
+      geometry,
+      decodeURIComponent(url.split("/").slice(-2).join("/").split("?")[0]),
+    );
+    showTitle(CONFIG.title);
     await loadAnnotations(true);
   } catch (err) {
     console.warn(`Could not load ${url}`, err);
@@ -756,6 +774,7 @@ async function loadFromFile(file) {
   await new Promise((r) => requestAnimationFrame(() => setTimeout(r, 0))); // let the spinner paint
   try {
     setModel(loader.parse(await file.arrayBuffer()), file.name);
+    showTitle(file.name.replace(/\.stl$/i, ""));
     await loadAnnotations(false);
   } catch (err) {
     console.error(err);
@@ -831,7 +850,11 @@ function toggleFullscreen() {
 if (!document.fullscreenEnabled) $('[data-action="fullscreen"]').hidden = true;
 
 // ?home=false&autorotate=false&fullscreen=false hide those top-right buttons
-const toolParams = { home: "reset", autorotate: "autorotate", fullscreen: "fullscreen" };
+const toolParams = {
+  home: "reset",
+  autorotate: "autorotate",
+  fullscreen: "fullscreen",
+};
 for (const [param, action] of Object.entries(toolParams)) {
   const v = params.get(param)?.toLowerCase();
   if (v === "false" || v === "0") $(`[data-action="${action}"]`).hidden = true;

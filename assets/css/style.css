@@ -385,6 +385,19 @@ body:not(.editing) #popup-text {
   border-color: #fff;
   color: #16171a;
 }
+.btn.accent {
+  background: rgba(28, 170, 217, 0.14);
+  border-color: var(--accent);
+  color: var(--accent);
+}
+.btn.accent:hover {
+  background: rgba(28, 170, 217, 0.24);
+}
+.btn:disabled {
+  opacity: 0.4;
+  border-color: var(--line);
+  cursor: default;
+}
 .btn.danger {
   color: var(--danger);
 }
@@ -466,14 +479,14 @@ body:not(.editing) #popup-text {
   overflow-wrap: anywhere;
 }
 .toolbar {
-  display: flex;
-  flex-wrap: wrap;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr)); /* Open STL · Import · Export, equal widths */
   gap: 6px;
   padding: 12px 16px;
   border-bottom: 1px solid var(--line);
 }
 .toolbar #btn-add {
-  flex: 1 0 100%;
+  grid-column: 1 / -1;
 }
 
 #list {

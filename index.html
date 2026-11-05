@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>RamzMesh — 3D Viewer</title>
+    <title>RamzMesh</title>
     <link rel="stylesheet" href="assets/css/style.css" />
 
     <script type="importmap">
@@ -181,7 +181,7 @@
               </div>
             </div>
           </div>
-          <h1 id="title">riio</h1>
+          <h1 id="title" hidden></h1>
           <div class="sub">
             <span id="model-name">No model</span> ·
             <span id="count">0 annotations</span>
@@ -189,12 +189,12 @@
         </div>
 
         <div class="toolbar edit-only">
-          <button class="btn primary" id="btn-add" data-action="add">
+          <button class="btn primary" id="btn-add" data-action="add" hidden>
             <span id="btn-add-label">+ Add annotation</span>
           </button>
-          <button class="btn" data-action="open-stl">Open STL</button>
-          <button class="btn" data-action="import">Import</button>
-          <button class="btn" data-action="export">Export</button>
+          <button class="btn accent" data-action="open-stl">Open STL</button>
+          <button class="btn" data-action="import" disabled>Import</button>
+          <button class="btn" data-action="export" disabled>Export</button>
         </div>
 
         <ol id="list"></ol>
