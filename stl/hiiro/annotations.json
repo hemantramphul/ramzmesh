@@ -1,0 +1,27 @@
+{
+  "model": "hiiro_scaled.stl",
+  "upAxis": "z",
+  "annotations": [
+    {
+      "title": "dsf",
+      "text": "sdf",
+      "position": [
+        0.2273,
+        -0.0055,
+        0.1545
+      ],
+      "view": {
+        "position": [
+          0.9898,
+          0.0275,
+          0.3533
+        ],
+        "target": [
+          0.2273,
+          -0.0055,
+          0.1545
+        ]
+      }
+    }
+  ]
+}

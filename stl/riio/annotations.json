@@ -1,47 +1,77 @@
 {
-  "model": "riio.stl",
+  "model": "riio/model.stl",
   "upAxis": "z",
   "annotations": [
     {
-      "title": "sd",
-      "text": "sdg",
-      "position": [
-        0.1015,
-        -0.0072,
-        0.0814
-      ],
+      "title": "LiDAR",
+      "text": "Captures 200,000 points per second with 2 cm precision over a 40 m range, for accurate mapping of the environment.",
+      "position": [0.1018, 0.0024, 0.0865],
       "view": {
-        "position": [
-          0.6011,
-          -0.1741,
-          0.2258
-        ],
-        "target": [
-          0.1015,
-          -0.0072,
-          0.0814
-        ]
+        "position": [0.5905, -0.0063, 0.1833],
+        "target": [0.1018, 0.0024, 0.0865]
       }
     },
     {
-      "title": "caemra",
-      "text": "sdfsdf",
-      "position": [
-        0.1977,
-        0.0065,
-        -0.0086
-      ],
+      "title": "4K Camera",
+      "text": "Records 4K video at 30 fps for sharp, detailed inspection footage.",
+      "position": [0.1977, 0.0065, -0.0086],
       "view": {
-        "position": [
-          0.6011,
-          -0.1741,
-          0.2258
-        ],
-        "target": [
-          0.1977,
-          0.0065,
-          -0.0086
-        ]
+        "position": [0.6011, -0.1741, 0.2258],
+        "target": [0.1977, 0.0065, -0.0086]
+      }
+    },
+    {
+      "title": "Protective Handle",
+      "text": "Lets you pick up and carry the drone safely.",
+      "position": [0.0159, 0.0019, 0.1234],
+      "view": {
+        "position": [0.6259, -0.2412, 0.3539],
+        "target": [0.0159, 0.0019, 0.1234]
+      }
+    },
+    {
+      "title": "Data Extraction",
+      "text": "A combined LiDAR and data connector using 100/1000 Ethernet for fast transfer of captured data.",
+      "position": [-0.0174, 0.0246, 0.028],
+      "view": {
+        "position": [-0.3802, 0.1002, 0.1804],
+        "target": [-0.0174, 0.0246, 0.028]
+      }
+    },
+    {
+      "title": "On/Off Button",
+      "text": "Turns the drone on and off.",
+      "position": [-0.0065, -0.0028, 0.0123],
+      "view": {
+        "position": [-0.3802, 0.1002, 0.1804],
+        "target": [-0.0065, -0.0028, 0.0123]
+      }
+    },
+    {
+      "title": "Battery",
+      "text": "A 6S 6,000 mAh battery delivers more than 10 minutes of flight time.",
+      "position": [-0.1403, 0.0087, 0.0004],
+      "view": {
+        "position": [-0.4119, 0.0826, 0.1117],
+        "target": [-0.1403, 0.0087, 0.0004]
+      }
+    },
+    {
+      "title": "Protective Elements",
+      "text": "Resistant to side and vertical impacts, keeping the drone protected when flying close to structures.",
+      "position": [0.169, 0.1744, -0.0044],
+      "view": {
+        "position": [0.5709, 0.1828, 0.2713],
+        "target": [0.169, 0.1744, -0.0044]
+      }
+    },
+    {
+      "title": "Status Light",
+      "text": "Shows the drone's status at a glance.",
+      "position": [0.1866, -0.0453, 0.001],
+      "view": {
+        "position": [0.5709, 0.1828, 0.2713],
+        "target": [0.1866, -0.0453, 0.001]
       }
     }
   ]
