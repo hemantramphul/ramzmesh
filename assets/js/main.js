@@ -26,7 +26,7 @@ const CONFIG = {
   editable: true, // set to false before publishing so visitors only view
 };
 // URL tips: add ?edit to edit on a published page, or ?view to preview what visitors see.
-// e.g. model.html?view&file=hiiro
+// e.g. model.html?view&file=hiiro — add &home=false, &autorotate=false or &fullscreen=false to hide those buttons
 
 // Fast raycasting for big STLs (placing points + hiding hotspots behind the model)
 THREE.BufferGeometry.prototype.computeBoundsTree = computeBoundsTree;
@@ -822,6 +822,13 @@ function toggleFullscreen() {
       .catch(() => {});
 }
 if (!document.fullscreenEnabled) $('[data-action="fullscreen"]').hidden = true;
+
+// ?home=false&autorotate=false&fullscreen=false hide those top-right buttons
+const toolParams = { home: "reset", autorotate: "autorotate", fullscreen: "fullscreen" };
+for (const [param, action] of Object.entries(toolParams)) {
+  const v = params.get(param)?.toLowerCase();
+  if (v === "false" || v === "0") $(`[data-action="${action}"]`).hidden = true;
+}
 
 document.addEventListener("click", (e) => {
   const btn = e.target.closest("[data-action]");
