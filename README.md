@@ -1,5 +1,8 @@
 # RamzMesh
 
+[![Live demo](https://img.shields.io/badge/Live%20demo-RamzMesh-1caad9?logo=githubpages&logoColor=white)](https://hemantramphul.github.io/ramzmesh/)
+[![Deploy to GitHub Pages](https://github.com/hemantramphul/ramzmesh/actions/workflows/pages/pages-build-deployment/badge.svg)](https://github.com/hemantramphul/ramzmesh/actions/workflows/pages/pages-build-deployment)
+
 Publish, share and embed interactive 3D models with annotations, right in the browser.
 
 <a href="assets/images/image.png"><img src="assets/images/image.png" alt="RamzMesh editor: 3D viewer with the annotation panel on the right"></a>
@@ -61,14 +64,14 @@ FBX annotations are saved separately from STL ones. The FBX page's code is in `a
 
 ## URL parameters
 
-| Parameter    | Example            | What it does                                     |
-| ------------ | ------------------ | ------------------------------------------------ |
-| `file`       | `file=hiiro`       | Loads `stl/hiiro/model.stl` and its annotations  |
-| `view`       | `view`             | Visitor mode: no side panel, auto-rotate on      |
-| `edit`       | `edit`             | Allows editing when `editable` is `false`        |
-| `home`       | `home=false`       | Hides the reset view button                      |
-| `autorotate` | `autorotate=false` | Hides the auto-rotate button                     |
-| `fullscreen` | `fullscreen=false` | Hides the fullscreen button                      |
+| Parameter    | Example            | What it does                                    |
+| ------------ | ------------------ | ----------------------------------------------- |
+| `file`       | `file=hiiro`       | Loads `stl/hiiro/model.stl` and its annotations |
+| `view`       | `view`             | Visitor mode: no side panel, auto-rotate on     |
+| `edit`       | `edit`             | Allows editing when `editable` is `false`       |
+| `home`       | `home=false`       | Hides the reset view button                     |
+| `autorotate` | `autorotate=false` | Hides the auto-rotate button                    |
+| `fullscreen` | `fullscreen=false` | Hides the fullscreen button                     |
 
 Without `file`, `stl.html` opens empty, ready for a new STL.
 
@@ -131,7 +134,9 @@ Built by **Hemant Ramphul**.
 - GitHub: [@hemantramphul](https://github.com/hemantramphul/)
 - Email: [hemantramphul@gmail.com](mailto:hemantramphul@gmail.com?subject=RamzMesh)
 
-If RamzMesh is useful to you, you can [buy me a coffee](https://buymeacoffee.com/hemant.ramphul).
+If [RamzMesh](https://hemantramphul.github.io/ramzmesh/) is useful to you, you can buy me a coffee:
+
+[![Buy me a coffee](https://img.shields.io/badge/Buy%20me%20a%20coffee-ffdd00?style=for-the-badge&logo=buymeacoffee&logoColor=black)](https://buymeacoffee.com/hemant.ramphul)
 
 ## License
 
