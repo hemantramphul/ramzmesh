@@ -3,7 +3,7 @@
   "upAxis": "y",
   "annotations": [
     {
-      "title": "4K Camera",
+      "title": "4K RGB Camera",
       "text": "Records 4K video at 30 fps for sharp, detailed inspection footage.",
       "position": [
         -179.9359,
@@ -66,8 +66,8 @@
       }
     },
     {
-      "title": "Led",
-      "text": "??",
+      "title": "10,000-Lumen Lighting",
+      "text": "10,000 lumens to light up dark spaces, with intelligent modes: full, dust and oblique.",
       "position": [
         -168.6014,
         19.1536,
@@ -167,6 +167,69 @@
           -2.2488,
           137.7423,
           -1.5287
+        ]
+      }
+    },
+    {
+      "title": "1D Laser",
+      "text": "A single laser beam that measures the distance to the surface in front of the camera.",
+      "position": [
+        -179.748,
+        -10.2401,
+        0.3731
+      ],
+      "view": {
+        "position": [
+          -405.6395,
+          77.749,
+          -58.4063
+        ],
+        "target": [
+          -179.748,
+          -10.2401,
+          0.3731
+        ]
+      }
+    },
+    {
+      "title": "Gimbal Module",
+      "text": "Tilts the cameras from -90° to +90°, so they can look straight down, straight ahead or straight up.",
+      "position": [
+        -156.5054,
+        -2.4086,
+        32.3451
+      ],
+      "view": {
+        "position": [
+          -342.041,
+          52.9853,
+          -41.9536
+        ],
+        "target": [
+          -156.5054,
+          -2.4086,
+          32.3451
+        ]
+      }
+    },
+    {
+      "title": "Indicator Light",
+      "text": "Shows the drone's status at a glance.",
+      "position": [
+        12.7609,
+        30.7718,
+        0.9
+      ],
+      "view": {
+        "position": [
+          111.496,
+          177.6192,
+          -66.2586
+        ],
+        "target": [
+          12.7609,
+          30.7718,
+          0.9
         ]
       }
     }
