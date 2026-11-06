@@ -1,68 +1,50 @@
 {
-  "model": "KLEB BEST MESHNotexture.stl",
+  "model": "person/model.stl",
   "upAxis": "y",
   "annotations": [
     {
       "title": "Eye",
-      "text": "",
-      "position": [
-        -7.3017,
-        11.254,
-        -242.3138
-      ],
+      "text": "Lets us see. It focuses light onto the back of the eye, and the brain turns that into images.",
+      "position": [-7.3017, 11.254, -242.3138],
       "view": {
-        "position": [
-          308.503,
-          78.6371,
-          588.0596
-        ],
-        "target": [
-          -7.3017,
-          11.254,
-          -242.3138
-        ]
+        "position": [308.503, 78.6371, 588.0596],
+        "target": [-7.3017, 11.254, -242.3138]
       }
     },
     {
       "title": "Nose",
-      "text": "",
-      "position": [
-        37.782,
-        -20.2613,
-        -229.856
-      ],
+      "text": "Lets us smell and breathe. It also warms and cleans the air on its way to the lungs.",
+      "position": [37.782, -20.2613, -229.856],
       "view": {
-        "position": [
-          306.0256,
-          78.6371,
-          589.0501
-        ],
-        "target": [
-          37.782,
-          -20.2613,
-          -229.856
-        ]
+        "position": [306.0256, 78.6371, 589.0501],
+        "target": [37.782, -20.2613, -229.856]
       }
     },
     {
       "title": "Mouth",
-      "text": "",
-      "position": [
-        29.5247,
-        -58.9868,
-        -238.0672
-      ],
+      "text": "Used to eat, speak and breathe. The tongue inside lets us taste.",
+      "position": [29.5247, -58.9868, -238.0672],
       "view": {
-        "position": [
-          299.132,
-          78.6371,
-          591.7655
-        ],
-        "target": [
-          29.5247,
-          -58.9868,
-          -238.0672
-        ]
+        "position": [299.132, 78.6371, 591.7655],
+        "target": [29.5247, -58.9868, -238.0672]
+      }
+    },
+    {
+      "title": "Ear",
+      "text": "Lets us hear. Deep inside, it also helps us keep our balance.",
+      "position": [-111.9316, -20.1264, -269.9289],
+      "view": {
+        "position": [-62.6754, 163.4828, 43.0305],
+        "target": [-111.9316, -20.1264, -269.9289]
+      }
+    },
+    {
+      "title": "Neck",
+      "text": "Holds up the head and lets it turn, nod and tilt.",
+      "position": [-9.8868, -132.4802, -276.2379],
+      "view": {
+        "position": [188.0324, -108.5777, 70.5146],
+        "target": [-9.8868, -132.4802, -276.2379]
       }
     }
   ]
