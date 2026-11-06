@@ -24,13 +24,19 @@ RamzMesh is a 3D viewer for STL and FBX files. Open a model, click on it to plac
 
 ## Run it locally
 
-Models are loaded over HTTP, so serve the folder instead of double-clicking the HTML files:
+Models are loaded over HTTP, so serve the folder instead of double-clicking the HTML files. Either way works:
+
+**VS Code Live Server**: install the [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) extension, right-click `index.html` and choose **Open with Live Server**. It opens <http://127.0.0.1:5500> and reloads the page when you save a file.
+
+**Python**: from the project folder, run:
 
 ```bash
 python -m http.server 8000
 ```
 
-Then open <http://localhost:8000> and choose STL or FBX. VS Code's Live Server works too.
+Then open <http://localhost:8000>.
+
+Choose STL or FBX on the start page.
 
 ## Add a model
 
