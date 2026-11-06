@@ -94,21 +94,26 @@ Older links to the site root with `file`, `view` or `edit` (like `/?view&file=hi
 
 ## Settings
 
-Edit `CONFIG` at the top of `assets/js/main.js`:
+Edit `CONFIG` at the top of `assets/js/main.js` (STL) or `assets/js/fbx.js` (FBX):
 
-| Setting          | Default   | What it does                                                   |
-| ---------------- | --------- | -------------------------------------------------------------- |
-| `zUp`            | `true`    | Default up axis (most CAD and 3D-printing STLs are Z-up)       |
-| `modelColor`     | `#c9ccd3` | Model color                                                    |
-| `annotationZoom` | `0.6`     | How close the camera gets to an opened annotation              |
-| `editable`       | `true`    | Set to `false` so visitors can only view (`?edit` still edits) |
+| Setting          | Default   | What it does                                                                         |
+| ---------------- | --------- | ------------------------------------------------------------------------------------ |
+| `zUp`            | `true`    | Default up axis (most CAD and 3D-printing STLs are Z-up; `false` for FBX)            |
+| `modelColor`     | `#c9ccd3` | Model color (STL only)                                                               |
+| `annotationZoom` | `0.6`     | How close the camera gets to an opened annotation                                    |
+| `zoomIn`         | `0.5`     | Closest you can zoom in (smaller = closer)                                           |
+| `zoomOut`        | `2`       | Farthest you can zoom out, × the whole-model view (bigger = farther)                 |
+| `viewZoom`       | `1.3`     | View mode: how much closer visitors start, as long as the model still fits on screen |
+| `editable`       | `true`    | Set to `false` so visitors can only view (`?edit` still edits)                       |
 
 ## Project structure
 
 ```
 index.html            Start page: choose the STL or FBX viewer
 stl.html              STL viewer and annotation editor
-assets/css/style.css  Styles
+assets/css/style.css  Viewer styles
+assets/css/main.css   Start page styles
+assets/css/footer.css Author credits (social links, "Ramz" gradient), shared by all pages
 assets/js/main.js     STL viewer logic and settings
 fbx.html              FBX viewer and annotation editor
 assets/js/fbx.js      FBX viewer logic and settings (a copy of main.js)
@@ -117,6 +122,16 @@ assets/css/vendor/    Bootstrap Icons (bundled icon font)
 stl/<name>/           One folder per model: model.stl + annotations.json
 fbx/<name>/           One folder per FBX model: model.fbx + annotations.json (+ texture files)
 ```
+
+## Author
+
+Built by **Hemant Ramphul**.
+
+- LinkedIn: [hemantramphul](https://www.linkedin.com/in/hemantramphul/)
+- GitHub: [@hemantramphul](https://github.com/hemantramphul/)
+- Email: [hemantramphul@gmail.com](mailto:hemantramphul@gmail.com?subject=RamzMesh)
+
+If RamzMesh is useful to you, you can [buy me a coffee](https://buymeacoffee.com/hemant.ramphul).
 
 ## License
 
