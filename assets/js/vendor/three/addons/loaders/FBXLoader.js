@@ -1720,6 +1720,13 @@ class GeometryParser {
 
 			}
 
+		} else if ( geoInfo.material ) {
+
+			// RamzMesh fix: "AllSame" means the whole geometry uses one material, but the mesh can
+			// still have several material slots (Blender exports it so). Without a group, a mesh
+			// with several materials isn't drawn at all, so give it one using that material.
+			geo.addGroup( 0, geo.attributes.position.count, Math.max( 0, geoInfo.material.buffer[ 0 ] ) );
+
 		}
 
 		this.addMorphTargets( geo, geoNode, morphTargets, preTransform );

@@ -155,6 +155,7 @@ const FBX_MATERIAL_KEYS = [
   "color",
   "map",
   "emissive",
+  "emissiveIntensity",
   "emissiveMap",
   "normalMap",
   "normalScale",
@@ -167,9 +168,17 @@ const FBX_MATERIAL_KEYS = [
   "vertexColors",
 ];
 
-function fbxMaterial(m) {
+// `fromBlender`: Blender writes its Principled BSDF's roughness and metallic into the FBX's old
+// shininess and reflection fields, so they can be read back. Other tools use those fields
+// differently, so their models keep the default look.
+function fbxMaterial(m, fromBlender) {
   if (!m.isMeshPhongMaterial && !m.isMeshLambertMaterial) return m;
   const params = { metalness: 0.1, roughness: 0.55, side: THREE.DoubleSide };
+  if (fromBlender && m.isMeshPhongMaterial) {
+    // Blender exports shininess = ((1 - roughness) × 10)² and reflection = metallic
+    params.roughness = THREE.MathUtils.clamp(1 - Math.sqrt(m.shininess) / 10, 0, 1);
+    params.metalness = THREE.MathUtils.clamp(m.reflectivity, 0, 1);
+  }
   for (const key of FBX_MATERIAL_KEYS) {
     const v = m[key];
     // A texture that never loaded (file not supplied, PSD...) would paint the surface black
@@ -203,6 +212,11 @@ async function fbxModel(buffer, path, files) {
 
   const group = new FBXLoader(manager).parse(buffer, path);
   if (loadingTextures) await texturesDone;
+  // Blender signs the file's header: "Creator: Blender (stable FBX IO) - 5.2.3 ..."
+  const header = new Uint8Array(buffer, 0, Math.min(buffer.byteLength, 4096));
+  const fromBlender = /Blender \(stable FBX IO\)/.test(
+    new TextDecoder("latin1").decode(header),
+  );
   blobUrls.forEach((url) => URL.revokeObjectURL(url));
 
   // Lights and cameras saved in the file would fight the viewer's own lighting and framing
@@ -213,7 +227,7 @@ async function fbxModel(buffer, path, files) {
   extras.forEach((o) => o.removeFromParent());
   const converted = new Map(); // parts often share materials
   const convert = (m) => {
-    if (!converted.has(m)) converted.set(m, fbxMaterial(m));
+    if (!converted.has(m)) converted.set(m, fbxMaterial(m, fromBlender));
     return converted.get(m);
   };
   group.traverse((o) => {
