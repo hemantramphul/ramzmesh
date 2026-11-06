@@ -26,7 +26,8 @@ const CONFIG = {
   zUp: false, // FBX files are usually Y-up
   annotationZoom: 0.6, // how close the camera gets to an opened annotation (× model radius; smaller = closer)
   zoomIn: 0.5, // closest you can zoom (× model radius from the point the view turns around; smaller = closer)
-  zoomOut: 2, // farthest you can zoom (× the starting distance; bigger = farther)
+  zoomOut: 2, // farthest you can zoom (× the distance that shows the whole model; bigger = farther)
+  viewZoom: 1.3, // view mode only: how much closer visitors start than the whole-model view, as far as the model still fits on screen (1 = whole model)
   editable: true, // set to false before publishing so visitors only view
 };
 // URL tips: add ?edit to edit on a published page, or ?view to preview what visitors see.
@@ -257,6 +258,45 @@ function setAxis(z) {
   }
 }
 
+// Closest camera distance at which the model's box stays on screen from every angle of the
+// auto-rotate, so a closer start never crops it (e.g. a wide model on a narrow phone screen)
+const _yAxis = new THREE.Vector3(0, 1, 0);
+function noCropDist(center, dir, maxDist) {
+  const box = new THREE.Box3().setFromObject(model);
+  const corners = Array.from({ length: 8 }, (_, i) =>
+    new THREE.Vector3(
+      i & 1 ? box.max.x : box.min.x,
+      i & 2 ? box.max.y : box.min.y,
+      i & 4 ? box.max.z : box.min.z,
+    ),
+  );
+  const cam = new THREE.PerspectiveCamera(camera.fov, camera.aspect, 0.001, 1e4);
+  const d = new THREE.Vector3(),
+    p = new THREE.Vector3();
+  const fits = (dist) => {
+    for (let a = 0; a < 24; a++) {
+      d.copy(dir).applyAxisAngle(_yAxis, (a / 24) * Math.PI * 2);
+      cam.position.copy(center).addScaledVector(d, dist);
+      cam.lookAt(center);
+      cam.updateMatrixWorld();
+      for (const c of corners) {
+        p.copy(c).project(cam);
+        if (Math.abs(p.x) > 0.92 || Math.abs(p.y) > 0.92 || Math.abs(p.z) > 1)
+          return false;
+      }
+    }
+    return true;
+  };
+  let lo = 0,
+    hi = maxDist;
+  for (let i = 0; i < 20; i++) {
+    const mid = (lo + hi) / 2;
+    if (fits(mid)) hi = mid;
+    else lo = mid;
+  }
+  return hi;
+}
+
 function homeView() {
   const sphere = new THREE.Box3()
     .setFromObject(model)
@@ -264,24 +304,28 @@ function homeView() {
   radius = sphere.radius;
   const vFov = THREE.MathUtils.degToRad(camera.fov);
   const hFov = 2 * Math.atan(Math.tan(vFov / 2) * camera.aspect);
-  const dist = (radius / Math.sin(Math.min(vFov, hFov) / 2)) * 1.1;
   const dir = new THREE.Vector3(1, 0.65, 1.3).normalize();
+  // fitDist shows the whole model; visitors (view mode) start closer, but never so close it gets cropped
+  const fitDist = (radius / Math.sin(Math.min(vFov, hFov) / 2)) * 1.1;
+  const dist = EDIT
+    ? fitDist
+    : Math.max(fitDist / CONFIG.viewZoom, noCropDist(sphere.center, dir, fitDist));
   return {
     position: sphere.center.clone().addScaledVector(dir, dist),
     target: sphere.center.clone(),
-    dist,
+    fitDist,
   };
 }
 
 function frameModel(animate = true) {
   if (!model) return;
   const v = homeView();
-  camera.near = v.dist / 200;
-  camera.far = v.dist * 50;
+  camera.near = v.fitDist / 200;
+  camera.far = v.fitDist * 50;
   camera.updateProjectionMatrix();
   // Opened annotations can always be reached, even with zoomIn set farther than annotationZoom
   controls.minDistance = radius * Math.min(CONFIG.zoomIn, CONFIG.annotationZoom);
-  controls.maxDistance = v.dist * CONFIG.zoomOut;
+  controls.maxDistance = v.fitDist * CONFIG.zoomOut;
   flyTo(v.position, v.target, animate);
 }
 
