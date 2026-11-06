@@ -1,0 +1,27 @@
+{
+  "model": "model.fbx",
+  "upAxis": "y",
+  "annotations": [
+    {
+      "title": "Battery",
+      "text": "test",
+      "position": [
+        164.0021,
+        13.6257,
+        36.276
+      ],
+      "view": {
+        "position": [
+          526.1173,
+          249.8478,
+          352.6705
+        ],
+        "target": [
+          164.0021,
+          13.6257,
+          36.276
+        ]
+      }
+    }
+  ]
+}

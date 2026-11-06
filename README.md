@@ -4,11 +4,12 @@ Publish, share and embed interactive 3D models with annotations, right in the br
 
 <a href="assets/images/image.png"><img src="assets/images/image.png" alt="RamzMesh editor: 3D viewer with the annotation panel on the right" width="720"></a>
 
-RamzMesh is a 3D viewer for STL files. Open a model, click on it to place numbered annotations, then share a link where visitors can rotate the model and read each point's info. It's plain HTML, CSS and JavaScript ([Three.js](https://threejs.org)): no build step and no backend.
+RamzMesh is a 3D viewer for STL and FBX files. Open a model, click on it to place numbered annotations, then share a link where visitors can rotate the model and read each point's info. It's plain HTML, CSS and JavaScript ([Three.js](https://threejs.org)): no build step and no backend.
 
 ## Features
 
 - Open any `.stl` file (button or drag and drop)
+- Open `.fbx` files with their colors and textures on `fbx.html`
 - Click on the model to add annotations with a title, a description and a saved camera angle
 - Edit, move, reorder and delete annotations
 - Annotations auto-save in your browser; export and import them as `annotations.json`
@@ -44,6 +45,18 @@ Then open <http://localhost:8000/model.html>. VS Code's Live Server works too.
 5. Share the link: `model.html?view&file=hiiro`
 
 Folder names can use letters, numbers, `-` and `_`.
+
+## FBX models (colors and textures)
+
+`fbx.html` is the same viewer and annotation editor for `.fbx` files. Unlike STL, an FBX keeps its own colors and textures.
+
+- Textures packed inside the FBX show up on their own. If the textures are separate image files, select or drop them together with the `.fbx`. They're matched by file name.
+- A texture that can't be found is left out, so the surface shows its plain material color instead of turning black.
+- Animations don't play: the model stays in its rest pose so annotation points stay where you put them.
+- FBX files start Y-up. If yours is lying on its side, use the Z↑ / Y↑ button.
+- To publish one, put it in `fbx/<name>/model.fbx` with its `annotations.json` and any separate texture files, then share `fbx.html?view&file=<name>`. The URL parameters are the same as for STL.
+
+FBX annotations are saved separately from STL ones. The FBX page's code is in `assets/js/fbx.js`, a copy of `main.js`, so changes to the STL page don't affect it.
 
 ## URL parameters
 
@@ -94,10 +107,13 @@ model.html            Viewer and annotation editor
 index.html            Sketchfab embed example
 assets/css/style.css  Styles
 assets/js/main.js     Viewer logic and settings
+fbx.html              FBX viewer and annotation editor
+assets/js/fbx.js      FBX viewer logic and settings (a copy of main.js)
 assets/js/vendor/     Three.js and three-mesh-bvh (bundled, nothing to install)
 stl/<name>/           One folder per model: model.stl + annotations.json
+fbx/<name>/           One folder per FBX model: model.fbx + annotations.json (+ texture files)
 ```
 
 ## License
 
-[GPL-3.0](LICENSE). Bundled libraries: [Three.js](https://github.com/mrdoob/three.js) and [three-mesh-bvh](https://github.com/gkjohnson/three-mesh-bvh), both MIT (licenses in `assets/js/vendor/`).
+[GPL-3.0](LICENSE). Bundled libraries: [Three.js](https://github.com/mrdoob/three.js) (including its FBX loader and [fflate](https://github.com/101arrowz/fflate)) and [three-mesh-bvh](https://github.com/gkjohnson/three-mesh-bvh), all MIT (licenses in `assets/js/vendor/`).
