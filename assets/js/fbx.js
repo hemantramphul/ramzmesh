@@ -25,6 +25,8 @@ const CONFIG = {
   annotationsUrl: FILE && `fbx/${FILE}/annotations.json`, // exported annotations, placed next to this file
   zUp: false, // FBX files are usually Y-up
   annotationZoom: 0.6, // how close the camera gets to an opened annotation (× model radius; smaller = closer)
+  zoomIn: 0.5, // closest you can zoom (× model radius from the point the view turns around; smaller = closer)
+  zoomOut: 2, // farthest you can zoom (× the starting distance; bigger = farther)
   editable: true, // set to false before publishing so visitors only view
 };
 // URL tips: add ?edit to edit on a published page, or ?view to preview what visitors see.
@@ -277,8 +279,9 @@ function frameModel(animate = true) {
   camera.near = v.dist / 200;
   camera.far = v.dist * 50;
   camera.updateProjectionMatrix();
-  controls.minDistance = radius * 0.15;
-  controls.maxDistance = v.dist * 5;
+  // Opened annotations can always be reached, even with zoomIn set farther than annotationZoom
+  controls.minDistance = radius * Math.min(CONFIG.zoomIn, CONFIG.annotationZoom);
+  controls.maxDistance = v.dist * CONFIG.zoomOut;
   flyTo(v.position, v.target, animate);
 }
 
