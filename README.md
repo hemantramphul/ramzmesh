@@ -2,7 +2,7 @@
 
 Publish, share and embed interactive 3D models with annotations, right in the browser.
 
-<a href="assets/images/image.png"><img src="assets/images/image.png" alt="RamzMesh editor: 3D viewer with the annotation panel on the right" width="720"></a>
+<a href="assets/images/image.png"><img src="assets/images/image.png" alt="RamzMesh editor: 3D viewer with the annotation panel on the right"></a>
 
 RamzMesh is a 3D viewer for STL and FBX files. Open a model, click on it to place numbered annotations, then share a link where visitors can rotate the model and read each point's info. It's plain HTML, CSS and JavaScript ([Three.js](https://threejs.org)): no build step and no backend.
 
