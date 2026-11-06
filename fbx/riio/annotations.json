@@ -1,25 +1,172 @@
 {
-  "model": "model.fbx",
+  "model": "riio/model.fbx",
   "upAxis": "y",
   "annotations": [
     {
-      "title": "Battery",
-      "text": "test",
+      "title": "4K Camera",
+      "text": "Records 4K video at 30 fps for sharp, detailed inspection footage.",
       "position": [
-        164.0021,
-        13.6257,
-        36.276
+        -179.9359,
+        6.7479,
+        0.5296
       ],
       "view": {
         "position": [
-          526.1173,
-          249.8478,
-          352.6705
+          -763.6178,
+          472.8376,
+          -410.9407
         ],
         "target": [
-          164.0021,
-          13.6257,
-          36.276
+          -179.9359,
+          6.7479,
+          0.5296
+        ]
+      }
+    },
+    {
+      "title": "LiDAR",
+      "text": "Captures 200,000 points per second with 2 cm precision over a 40 m range, for accurate mapping of the environment.",
+      "position": [
+        -79.734,
+        111.9443,
+        -0.4582
+      ],
+      "view": {
+        "position": [
+          -698.2695,
+          598.0615,
+          -375.4246
+        ],
+        "target": [
+          -79.734,
+          111.9443,
+          -0.4582
+        ]
+      }
+    },
+    {
+      "title": "Battery",
+      "text": "A 6S 6,000 mAh battery delivers more than 10 minutes of flight time.",
+      "position": [
+        154.2145,
+        14.8139,
+        0.1439
+      ],
+      "view": {
+        "position": [
+          430.8486,
+          153.6799,
+          132.708
+        ],
+        "target": [
+          154.2145,
+          14.8139,
+          0.1439
+        ]
+      }
+    },
+    {
+      "title": "Led",
+      "text": "??",
+      "position": [
+        -168.6014,
+        19.1536,
+        -51.5096
+      ],
+      "view": {
+        "position": [
+          -510.6933,
+          343.7954,
+          -458.8476
+        ],
+        "target": [
+          -168.6014,
+          19.1536,
+          -51.5096
+        ]
+      }
+    },
+    {
+      "title": "Data Extraction",
+      "text": "A combined LiDAR and data connector using 100/1000 Ethernet for fast transfer of captured data.",
+      "position": [
+        31.2496,
+        48.0212,
+        21.5801
+      ],
+      "view": {
+        "position": [
+          344.4084,
+          234.4578,
+          48.1762
+        ],
+        "target": [
+          31.2496,
+          48.0212,
+          21.5801
+        ]
+      }
+    },
+    {
+      "title": "On/Off Button",
+      "text": "Turns the drone on and off.",
+      "position": [
+        26.62,
+        37,
+        -1.0035
+      ],
+      "view": {
+        "position": [
+          328.7372,
+          351.0634,
+          117.3895
+        ],
+        "target": [
+          26.62,
+          37,
+          -1.0035
+        ]
+      }
+    },
+    {
+      "title": "Protective Elements",
+      "text": "Resistant to side and vertical impacts, keeping the drone protected when flying close to structures.",
+      "position": [
+        114.4961,
+        29.4432,
+        177.494
+      ],
+      "view": {
+        "position": [
+          537.375,
+          400.2079,
+          708.1304
+        ],
+        "target": [
+          114.4961,
+          29.4432,
+          177.494
+        ]
+      }
+    },
+    {
+      "title": "Protective Handle",
+      "text": "Lets you pick up and carry the drone safely.",
+      "position": [
+        -2.2488,
+        137.7423,
+        -1.5287
+      ],
+      "view": {
+        "position": [
+          -431.3021,
+          317.4739,
+          -126.8242
+        ],
+        "target": [
+          -2.2488,
+          137.7423,
+          -1.5287
         ]
       }
     }
