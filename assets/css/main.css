@@ -1,0 +1,276 @@
+:root {
+  --bg: #16171a;
+  --panel: #1d1e22;
+  --panel-2: #27292e;
+  --line: #35383e;
+  --text: #eceef2;
+  --muted: #9ba1ab;
+  --accent: #1caad9;
+}
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+html,
+body {
+  min-height: 100%;
+}
+body {
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    sans-serif;
+  background: radial-gradient(ellipse at 50% 0%, #1f2126 0%, var(--bg) 70%)
+    fixed;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+  min-height: 100dvh;
+  padding: 40px 16px;
+}
+main {
+  width: 100%;
+  max-width: 720px;
+  text-align: center;
+}
+.logo {
+  display: inline-block;
+  font-size: 44px;
+  color: var(--accent);
+}
+/* Bootstrap Icons sit on the text baseline by default; center the logo in its box instead */
+.logo,
+.logo::before {
+  line-height: 1;
+}
+.logo::before {
+  display: block;
+}
+h1 {
+  margin-top: 10px;
+  font-size: 28px;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+}
+.tagline {
+  margin-top: 6px;
+  color: var(--muted);
+  font-size: 15px;
+}
+h2 {
+  margin: 36px 0 14px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 14px;
+  text-align: left;
+}
+.option {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding: 22px 20px 20px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: 16px;
+  color: inherit;
+  text-decoration: none;
+  transition:
+    border-color 0.15s,
+    transform 0.15s,
+    background 0.15s;
+}
+.option:hover {
+  border-color: var(--accent);
+  background: #20232a;
+  transform: translateY(-2px);
+}
+.option:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+}
+.option-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+/* The STL / FBX cube drawings: one color vs colored faces */
+.option svg {
+  width: 40px;
+  height: 40px;
+  flex: none;
+}
+.option h3 {
+  font-size: 18px;
+  letter-spacing: -0.01em;
+}
+.ext {
+  display: inline-block;
+  margin-top: 2px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+  font-size: 12px;
+  color: var(--muted);
+}
+.option p {
+  color: var(--muted);
+  font-size: 14px;
+  line-height: 1.5;
+}
+/* "Open … viewer": a pill whose arrow slides when its card is hovered or focused */
+.go {
+  margin-top: auto;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 14px 8px 16px;
+  border: 1px solid var(--accent);
+  border-radius: 999px;
+  background: rgba(28, 170, 217, 0.12);
+  color: var(--accent);
+  font-size: 14px;
+  font-weight: 600;
+  transition:
+    background 0.2s,
+    color 0.2s,
+    box-shadow 0.2s;
+}
+.go .bi {
+  line-height: 1;
+  transition: transform 0.2s;
+}
+.go .bi::before {
+  display: block;
+}
+.option:hover .go,
+.option:focus-visible .go {
+  background: var(--accent);
+  color: #fff;
+  box-shadow: 0 4px 10px -6px rgba(28, 170, 217, 0.45);
+}
+.option:hover .go .bi,
+.option:focus-visible .go .bi {
+  transform: translateX(4px);
+}
+/* FBX: the colors of its cube, in the border and the text */
+.go.fbx {
+  border-color: transparent;
+  background:
+    linear-gradient(var(--panel), var(--panel)) padding-box,
+    linear-gradient(135deg, #f2c94c, #e5484d 50%, #1caad9) border-box;
+  color: var(--text);
+}
+.go-label {
+  background: linear-gradient(90deg, #f2c94c, #e5484d 50%, #1caad9);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.option:hover .go.fbx,
+.option:focus-visible .go.fbx {
+  background:
+    linear-gradient(#262932, #262932) padding-box,
+    linear-gradient(135deg, #f2c94c, #e5484d 50%, #1caad9) border-box;
+  color: var(--text);
+  box-shadow:
+    -3px 4px 10px -7px rgba(242, 201, 76, 0.45),
+    3px 4px 10px -7px rgba(28, 170, 217, 0.45);
+}
+@media (prefers-reduced-motion: reduce) {
+  .option,
+  .go,
+  .go .bi {
+    transition: none;
+  }
+  .option:hover,
+  .option:hover .go .bi,
+  .option:focus-visible .go .bi {
+    transform: none;
+  }
+}
+.note {
+  margin-top: 22px;
+  color: var(--muted);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* ---------- Footer: author, social links, coffee (same look as Ramz PDF Studio) ---------- */
+/* The social links and the "Ramz" brand link are styled in footer.css, shared with the viewers */
+.foot {
+  margin-top: 40px;
+  display: grid;
+  justify-items: center;
+  gap: 4px;
+  color: var(--muted);
+  font-size: 12px;
+}
+.foot small {
+  font-size: 11px;
+  opacity: 0.8;
+}
+.foot small a {
+  color: inherit;
+  text-decoration: none;
+}
+.foot small a:hover {
+  color: var(--text);
+}
+.coffee-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 2px auto 8px;
+  padding: 7px 16px;
+  border-radius: 999px;
+  color: #1f1400;
+  background-image: linear-gradient(120deg, #fd0, #ffc24b, #fd0);
+  background-size: 240% 240%;
+  font-size: 12.5px;
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(255, 221, 0, 0.15);
+  animation: coffee-flow 8s ease-in-out infinite;
+  transition:
+    filter 0.2s,
+    box-shadow 0.2s;
+}
+.coffee-btn:hover {
+  filter: brightness(1.06);
+  box-shadow: 0 6px 18px rgba(255, 221, 0, 0.25);
+  animation-duration: 3.5s;
+}
+@keyframes coffee-flow {
+  0%,
+  100% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .coffee-btn {
+    animation: none;
+  }
+}
+
+@media (max-width: 600px) {
+  .options {
+    grid-template-columns: 1fr;
+  }
+  h2 {
+    margin-top: 28px;
+  }
+}

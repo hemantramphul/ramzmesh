@@ -152,17 +152,61 @@ body:not(.editing) #app {
   background: var(--accent);
   border-color: var(--accent);
 }
-.icon-btn svg {
-  width: 18px;
-  height: 18px;
+.icon-btn .bi {
+  font-size: 17px;
+}
+/* Bootstrap Icons sit on the text baseline by default; center them in their boxes instead */
+.icon-btn .bi,
+.back-btn .bi,
+.brand .bi,
+.overlay .logo,
+.icon-btn .bi::before,
+.back-btn .bi::before,
+.brand .bi::before,
+.overlay .logo::before {
+  display: block;
+  line-height: 1;
 }
 
-#hint {
+/* Back to the start page (index.html), where you choose STL or FBX. Same look as the
+   view buttons, in the opposite corner; edit mode only, so visitors never see it */
+.back-btn {
   position: absolute;
   top: 12px;
   left: 12px;
+  z-index: 5; /* above the empty-state card, so you can go back before opening a file */
+  height: 38px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 0 14px 0 10px;
+  border-radius: 3px;
+  border: 1px solid var(--line);
+  background: rgba(29, 30, 34, 0.85);
+  backdrop-filter: blur(6px);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 700;
+  text-decoration: none;
+}
+.back-btn:hover {
+  border-color: #555a62;
+}
+.back-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+.back-btn .bi {
+  font-size: 14px;
+}
+
+/* Below the Back button (placing annotations only happens in edit mode, where it shows) */
+#hint {
+  position: absolute;
+  top: 58px;
+  left: 12px;
   z-index: 3;
-  max-width: calc(100% - 200px);
+  max-width: calc(100% - 24px);
   display: flex;
   align-items: center;
   gap: 10px;
@@ -290,6 +334,10 @@ body:not(.editing) #popup-text {
   background: rgba(29, 30, 34, 0.92);
   border: 1px solid var(--line);
   border-radius: 16px;
+}
+.overlay .logo {
+  font-size: 40px;
+  color: var(--accent);
 }
 .overlay h2 {
   font-size: 18px;
@@ -442,18 +490,15 @@ body:not(.editing) #popup-text {
   gap: 8px;
   margin-bottom: 14px;
 }
-.brand svg {
-  width: 22px;
-  height: 22px;
+.brand .bi {
   flex: none;
+  font-size: 22px;
+  color: var(--accent);
 }
 .brand-name {
   font-size: 15px;
   font-weight: 800;
   letter-spacing: -0.01em;
-}
-.brand-name span {
-  color: var(--accent);
 }
 .brand-tag {
   color: var(--muted);
@@ -464,9 +509,6 @@ body:not(.editing) #popup-text {
   color: var(--text);
   font-size: 15px;
   margin-bottom: 6px;
-}
-.overlay h2 .accent {
-  color: var(--accent);
 }
 .panel-head h1 {
   font-size: 20px;
@@ -568,6 +610,29 @@ body:not(.editing) #popup-text {
   color: var(--muted);
   font-size: 12px;
   line-height: 1.6;
+}
+/* Author credits under the tips, like the Ramz PDF Studio sidebar (base styles in footer.css) */
+.credits {
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid var(--line);
+  text-align: center;
+  font-size: 11px;
+  line-height: 1.5;
+}
+.credits .social {
+  gap: 6px;
+  margin-bottom: 8px;
+}
+.credits .social-link {
+  width: 30px;
+  height: 30px;
+  font-size: 14px;
+}
+.credits small {
+  display: block;
+  font-size: 10px;
+  opacity: 0.75;
 }
 
 /* ---------- Editor dialog ---------- */

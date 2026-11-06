@@ -1,0 +1,70 @@
+/* Author credits shared by every page (same look as Ramz PDF Studio): the social links and
+   the "Ramz" brand link. index.html's footer and the viewers' side panel size them on top. */
+.social {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--muted);
+  font-size: 16px;
+  text-decoration: none;
+  transition:
+    color 0.15s,
+    border-color 0.15s,
+    background 0.15s,
+    transform 0.15s;
+}
+.social-link:hover,
+.social-link:focus-visible {
+  color: var(--accent);
+  border-color: rgba(28, 170, 217, 0.45);
+  background: rgba(28, 170, 217, 0.12);
+  transform: translateY(-2px);
+}
+.social-link.social-share:hover,
+.social-link.social-share:focus-visible {
+  color: #25d366;
+  border-color: rgba(37, 211, 102, 0.5);
+  background: rgba(37, 211, 102, 0.12);
+}
+.social-link.social-coffee:hover,
+.social-link.social-coffee:focus-visible {
+  color: #fd0;
+  border-color: rgba(255, 221, 0, 0.55);
+  background: rgba(255, 221, 0, 0.12);
+}
+/* "Ramz" in the brand gradient: the footer link, and the app name on every page.
+   text-fill-color keeps the gradient even where a page colors the name's spans (e.g. "Mesh") */
+.brand-link,
+.ramz {
+  background: linear-gradient(90deg, #c0f10d, #0ce9f1, #04a2fe);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  -webkit-text-fill-color: transparent;
+}
+.brand-link {
+  font-weight: 800;
+  text-decoration: none;
+}
+.brand-link:hover {
+  filter: brightness(1.15);
+}
+@media (prefers-reduced-motion: reduce) {
+  .social-link,
+  .social-link:hover {
+    transition: none;
+    transform: none;
+  }
+}

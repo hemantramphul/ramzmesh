@@ -1,0 +1,303 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RamzMesh</title>
+    <link
+      rel="stylesheet"
+      href="assets/css/vendor/bootstrap-icons/bootstrap-icons.min.css"
+    />
+    <link rel="stylesheet" href="assets/css/style.css" />
+    <link rel="stylesheet" href="assets/css/footer.css" />
+
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "./assets/js/vendor/three/three.module.js",
+          "three/addons/": "./assets/js/vendor/three/addons/",
+          "three-mesh-bvh": "./assets/js/vendor/three-mesh-bvh/index.module.js"
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- ================= 3D VIEWER ================= -->
+      <div id="viewer">
+        <div id="hotspots"></div>
+
+        <a
+          class="back-btn edit-only"
+          href="index.html"
+          title="Back to the start page (choose STL or FBX)"
+        >
+          <i class="bi bi-chevron-left" aria-hidden="true"></i>
+        </a>
+
+        <div class="view-tools">
+          <button
+            class="icon-btn"
+            data-action="reset"
+            title="Reset view"
+            aria-label="Reset view"
+          >
+            <i class="bi bi-house" aria-hidden="true"></i>
+          </button>
+          <button
+            class="icon-btn"
+            data-action="autorotate"
+            title="Auto-rotate"
+            aria-label="Auto-rotate"
+          >
+            <i class="bi bi-arrow-clockwise" aria-hidden="true"></i>
+          </button>
+          <button
+            class="icon-btn edit-only"
+            data-action="axis"
+            title="Switch up axis (Z-up / Y-up)"
+            aria-label="Switch up axis"
+          >
+            <span id="axis-label">Z↑</span>
+          </button>
+          <button
+            class="icon-btn"
+            data-action="fullscreen"
+            title="Fullscreen"
+            aria-label="Fullscreen"
+          >
+            <i class="bi bi-fullscreen" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div id="hint" hidden>
+          <span id="hint-text">Click on the model to place an annotation</span>
+          <button class="mini" data-action="cancel-place">Cancel</button>
+        </div>
+
+        <div id="popup" hidden>
+          <div class="popup-head">
+            <span class="num edit-only" id="popup-num">1</span>
+            <h3 id="popup-title"></h3>
+            <button
+              class="mini edit-only"
+              data-action="close"
+              aria-label="Close annotation"
+            >
+              ✕
+            </button>
+          </div>
+          <p id="popup-text"></p>
+          <div class="popup-foot edit-only">
+            <button class="btn small" data-action="prev">‹ Prev</button>
+            <span id="popup-count"></span>
+            <button class="btn small edit-only" data-action="edit">Edit</button>
+            <button class="btn small" data-action="next">Next ›</button>
+          </div>
+        </div>
+
+        <div id="loader" class="overlay" hidden>
+          <div>
+            <div class="spinner"></div>
+            <p style="margin-top: 12px">Loading model…</p>
+          </div>
+        </div>
+
+        <div id="empty" class="overlay" hidden>
+          <div class="card">
+            <i class="bi bi-box logo" aria-hidden="true"></i>
+            <h2><span class="ramz">Ramz</span>Mesh</h2>
+            <p class="tagline edit-only">
+              Publish, share and embed interactive 3D files.
+            </p>
+            <p class="edit-only">
+              Open an STL file, or drag and drop it anywhere on this page.
+            </p>
+            <p class="view-only">The 3D model couldn't be loaded.</p>
+            <button class="btn primary edit-only" data-action="open-stl">
+              Open STL file
+            </button>
+            <p class="small edit-only" id="file-note" hidden></p>
+          </div>
+        </div>
+
+        <div id="drop" class="overlay">
+          Drop your .stl (or annotations.json) here
+        </div>
+        <div id="toast" role="status" aria-live="polite"></div>
+      </div>
+
+      <!-- ================= SIDE PANEL ================= -->
+      <aside id="panel" class="edit-only">
+        <div class="panel-head">
+          <div
+            class="brand"
+            title="RamzMesh — publish, share and embed interactive 3D files"
+          >
+            <i class="bi bi-box" aria-hidden="true"></i>
+            <div>
+              <div class="brand-name">
+                <span class="ramz">Ramz</span>Mesh
+              </div>
+              <div class="brand-tag">
+                Publish, share and embed interactive 3D files
+              </div>
+            </div>
+          </div>
+          <h1 id="title" hidden></h1>
+          <div class="sub">
+            <span id="model-name">No model</span> ·
+            <span id="count">0 annotations</span>
+          </div>
+        </div>
+
+        <div class="toolbar edit-only">
+          <button class="btn primary" id="btn-add" data-action="add" hidden>
+            <span id="btn-add-label">+ Add annotation</span>
+          </button>
+          <button class="btn accent" data-action="open-stl">Open STL</button>
+          <button class="btn" data-action="import" disabled>Import</button>
+          <button class="btn" data-action="export" disabled>Export</button>
+        </div>
+
+        <ol id="list"></ol>
+
+        <div class="panel-foot">
+          <div>Drag to rotate · Scroll to zoom · Right-drag to pan</div>
+          <div class="edit-only">
+            Annotations save in this browser automatically. Use <b>Export</b> to
+            get <code>annotations.json</code> for your site.
+          </div>
+
+          <div class="credits">
+            <nav class="social" aria-label="Social media">
+              <a
+                class="social-link"
+                href="https://www.linkedin.com/in/hemantramphul/"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="LinkedIn"
+                aria-label="LinkedIn"
+              >
+                <i class="bi bi-linkedin" aria-hidden="true"></i>
+              </a>
+              <a
+                class="social-link"
+                href="https://github.com/hemantramphul/"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="GitHub"
+                aria-label="GitHub"
+              >
+                <i class="bi bi-github" aria-hidden="true"></i>
+              </a>
+              <a
+                class="social-link"
+                href="https://www.facebook.com/hemant.ramphul/"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Facebook"
+                aria-label="Facebook"
+              >
+                <i class="bi bi-facebook" aria-hidden="true"></i>
+              </a>
+              <a
+                class="social-link"
+                href="https://www.instagram.com/hemant.ramphul/"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Instagram"
+                aria-label="Instagram"
+              >
+                <i class="bi bi-instagram" aria-hidden="true"></i>
+              </a>
+              <a
+                class="social-link"
+                href="https://www.youtube.com/@LavantirA"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="YouTube"
+                aria-label="YouTube"
+              >
+                <i class="bi bi-youtube" aria-hidden="true"></i>
+              </a>
+              <a
+                class="social-link social-coffee"
+                href="https://buymeacoffee.com/hemant.ramphul"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Buy me a coffee"
+                aria-label="Buy me a coffee"
+              >
+                <i class="bi bi-cup-hot" aria-hidden="true"></i>
+              </a>
+              <a
+                class="social-link social-share"
+                href="https://wa.me/?text=RamzMesh%20-%20publish%2C%20share%20and%20embed%20interactive%203D%20models%20(STL%20%26%20FBX)%3A%20https%3A%2F%2Fhemantramphul.github.io%2Framzmesh%2F"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Share on WhatsApp"
+                aria-label="Share on WhatsApp"
+              >
+                <i class="bi bi-whatsapp" aria-hidden="true"></i>
+              </a>
+            </nav>
+            <div>
+              &copy; <span id="year">2026</span>
+              <a
+                class="brand-link"
+                href="https://www.linkedin.com/in/hemantramphul/"
+                target="_blank"
+                rel="noopener noreferrer"
+                title="Hemant Ramphul"
+                >Ramz</a
+              >Mesh
+            </div>
+            <small>Built by Hemant Ramphul</small>
+          </div>
+        </div>
+      </aside>
+    </div>
+
+    <!-- ================= ANNOTATION EDITOR ================= -->
+    <dialog id="editor">
+      <form id="editor-form">
+        <h2 id="editor-heading">New annotation</h2>
+        <label for="f-title">Title</label>
+        <input
+          id="f-title"
+          type="text"
+          maxlength="120"
+          placeholder="e.g. Power button"
+          autocomplete="off"
+        />
+        <label for="f-text">Description</label>
+        <textarea
+          id="f-text"
+          placeholder="What should people know about this spot?"
+        ></textarea>
+        <label class="check" id="f-view-row"
+          ><input id="f-view" type="checkbox" /> Save the current camera angle
+          for this annotation</label
+        >
+        <div class="dialog-actions">
+          <button type="button" class="btn danger" id="btn-delete">
+            Delete
+          </button>
+          <button type="button" class="btn" id="btn-move">Move point</button>
+          <span class="spacer"></span>
+          <button type="button" class="btn" id="btn-cancel">Cancel</button>
+          <button type="submit" class="btn primary">Save</button>
+        </div>
+      </form>
+    </dialog>
+
+    <input type="file" id="stl-input" accept=".stl" hidden />
+    <input type="file" id="json-input" accept=".json,application/json" hidden />
+
+    <script>
+      document.getElementById("year").textContent = new Date().getFullYear();
+    </script>
+    <script type="module" src="assets/js/main.js"></script>
+  </body>
+</html>

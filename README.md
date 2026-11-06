@@ -8,8 +8,9 @@ RamzMesh is a 3D viewer for STL and FBX files. Open a model, click on it to plac
 
 ## Features
 
+- A start page to choose the STL or the FBX viewer
 - Open any `.stl` file (button or drag and drop)
-- Open `.fbx` files with their colors and textures on `fbx.html`
+- Open `.fbx` files with their colors and textures
 - Click on the model to add annotations with a title, a description and a saved camera angle
 - Edit, move, reorder and delete annotations
 - Annotations auto-save in your browser; export and import them as `annotations.json`
@@ -20,17 +21,17 @@ RamzMesh is a 3D viewer for STL and FBX files. Open a model, click on it to plac
 
 ## Run it locally
 
-Models are loaded over HTTP, so serve the folder instead of double-clicking `model.html`:
+Models are loaded over HTTP, so serve the folder instead of double-clicking the HTML files:
 
 ```bash
 python -m http.server 8000
 ```
 
-Then open <http://localhost:8000/model.html>. VS Code's Live Server works too.
+Then open <http://localhost:8000> and choose STL or FBX. VS Code's Live Server works too.
 
 ## Add a model
 
-1. Open `model.html` and click **Open STL**.
+1. Open `stl.html` and click **Open STL**.
 2. Click **+ Add annotation**, click a spot on the model, then fill in a title and description.
 3. Click **Export** to download `annotations.json`.
 4. Make a folder in `stl/` and put both files in it. The STL must be named `model.stl`:
@@ -42,7 +43,7 @@ Then open <http://localhost:8000/model.html>. VS Code's Live Server works too.
        annotations.json
    ```
 
-5. Share the link: `model.html?view&file=hiiro`
+5. Share the link: `stl.html?view&file=hiiro`
 
 Folder names can use letters, numbers, `-` and `_`.
 
@@ -69,13 +70,15 @@ FBX annotations are saved separately from STL ones. The FBX page's code is in `a
 | `autorotate` | `autorotate=false` | Hides the auto-rotate button                     |
 | `fullscreen` | `fullscreen=false` | Hides the fullscreen button                      |
 
-Without `file`, `model.html` opens empty, ready for a new STL.
+Without `file`, `stl.html` opens empty, ready for a new STL.
+
+Older links to the site root with `file`, `view` or `edit` (like `/?view&file=hiiro`) still open the STL viewer: the start page forwards them to `stl.html`.
 
 ## Embed on a website
 
 ```html
 <iframe
-  src="https://your-site.com/model.html?view&file=hiiro"
+  src="https://your-site.com/stl.html?view&file=hiiro"
   width="100%"
   height="600"
   style="border: 0"
@@ -103,17 +106,18 @@ Edit `CONFIG` at the top of `assets/js/main.js`:
 ## Project structure
 
 ```
-model.html            Viewer and annotation editor
-index.html            Sketchfab embed example
+index.html            Start page: choose the STL or FBX viewer
+stl.html              STL viewer and annotation editor
 assets/css/style.css  Styles
-assets/js/main.js     Viewer logic and settings
+assets/js/main.js     STL viewer logic and settings
 fbx.html              FBX viewer and annotation editor
 assets/js/fbx.js      FBX viewer logic and settings (a copy of main.js)
 assets/js/vendor/     Three.js and three-mesh-bvh (bundled, nothing to install)
+assets/css/vendor/    Bootstrap Icons (bundled icon font)
 stl/<name>/           One folder per model: model.stl + annotations.json
 fbx/<name>/           One folder per FBX model: model.fbx + annotations.json (+ texture files)
 ```
 
 ## License
 
-[GPL-3.0](LICENSE). Bundled libraries: [Three.js](https://github.com/mrdoob/three.js) (including its FBX loader and [fflate](https://github.com/101arrowz/fflate)) and [three-mesh-bvh](https://github.com/gkjohnson/three-mesh-bvh), all MIT (licenses in `assets/js/vendor/`).
+[GPL-3.0](LICENSE). Bundled libraries: [Three.js](https://github.com/mrdoob/three.js) (including its FBX loader and [fflate](https://github.com/101arrowz/fflate)), [three-mesh-bvh](https://github.com/gkjohnson/three-mesh-bvh) and [Bootstrap Icons](https://icons.getbootstrap.com), all MIT (licenses in `assets/js/vendor/` and `assets/css/vendor/`).
