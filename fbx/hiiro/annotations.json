@@ -1,0 +1,258 @@
+{
+  "model": "hiiro/model.fbx",
+  "upAxis": "y",
+  "annotations": [
+    {
+      "title": "LiDAR",
+      "text": "Captures 200,000 points per second with 2 cm precision over a 40 m range, for accurate mapping of the environment.",
+      "position": [
+        -0.257,
+        15.2473,
+        9.0459
+      ],
+      "view": {
+        "position": [
+          -1.4386,
+          47.2542,
+          107.1459
+        ],
+        "target": [
+          -0.257,
+          15.2473,
+          9.0459
+        ]
+      }
+    },
+    {
+      "title": "Polycarbonate dome",
+      "text": "Polycarbonate dome to protect the camera in all environments. Scratch-resistant, anti-glare and replaceable in the field.",
+      "position": [
+        0.1833,
+        9.9685,
+        18.5372
+      ],
+      "view": {
+        "position": [
+          -45.0856,
+          49.1149,
+          60.001
+        ],
+        "target": [
+          0.1833,
+          9.9685,
+          18.5372
+        ]
+      }
+    },
+    {
+      "title": "Caméra 4K stabilisée",
+      "text": "Records 4K video at 30 FPS for sharp and detailed inspection footage. 3 axis stabilization and 2 axis controlable to reach any spots.",
+      "position": [
+        -1.6833,
+        6.8266,
+        23.0739
+      ],
+      "view": {
+        "position": [
+          -28.6914,
+          16.0073,
+          63.4515
+        ],
+        "target": [
+          -1.6833,
+          6.8266,
+          23.0739
+        ]
+      }
+    },
+    {
+      "title": "Suspension system",
+      "text": "A passive suspension system that ensures better grip and off-road capability.",
+      "position": [
+        -0.9543,
+        -2.7233,
+        0.2815
+      ],
+      "view": {
+        "position": [
+          -64.8072,
+          17.3439,
+          18.0755
+        ],
+        "target": [
+          -0.9543,
+          -2.7233,
+          0.2815
+        ]
+      }
+    },
+    {
+      "title": "6-wheel drive system",
+      "text": "A 6-wheel drive system providing excellent traction in all conditions.",
+      "position": [
+        -13.12,
+        -4.7051,
+        16.6163
+      ],
+      "view": {
+        "position": [
+          -46.7181,
+          23.1659,
+          48.2071
+        ],
+        "target": [
+          -13.12,
+          -4.7051,
+          16.6163
+        ]
+      }
+    },
+    {
+      "title": "Omni-directional LED",
+      "text": "Directional LED providing better long-range illumination.",
+      "position": [
+        9.09,
+        0.7345,
+        22.8835
+      ],
+      "view": {
+        "position": [
+          -19.0297,
+          21.0165,
+          65.7804
+        ],
+        "target": [
+          9.09,
+          0.7345,
+          22.8835
+        ]
+      }
+    },
+    {
+      "title": "Status LED",
+      "text": "Status LED indicating the robot’s status at any point during the mission.",
+      "position": [
+        -0.0819,
+        12.587,
+        -0.7974
+      ],
+      "view": {
+        "position": [
+          23.901,
+          36.3578,
+          -54.412
+        ],
+        "target": [
+          -0.0819,
+          12.587,
+          -0.7974
+        ]
+      }
+    },
+    {
+      "title": "Aluminium chassis",
+      "text": "Lightweight yet strong aluminium chassis. Offering the perfect balance for a durable, robust and hardy robot in all environments. Fully waterproof chassis.",
+      "position": [
+        -6.5672,
+        7.0582,
+        6.2998
+      ],
+      "view": {
+        "position": [
+          -42.7498,
+          26.3771,
+          50.7078
+        ],
+        "target": [
+          -6.5672,
+          7.0582,
+          6.2998
+        ]
+      }
+    },
+    {
+      "title": "Waterproof interface",
+      "text": "Waterproof interface: Waterproof power interface allowing the robot to be switched on and recharged in 1 hour 30 minutes and providing a data connector using 100/1000 Ethernet for fast transfer of captured data.",
+      "position": [
+        -0.202,
+        9.6,
+        -5.8945
+      ],
+      "view": {
+        "position": [
+          29.0753,
+          49.2473,
+          -38.8822
+        ],
+        "target": [
+          -0.202,
+          9.6,
+          -5.8945
+        ]
+      }
+    },
+    {
+      "title": "Lifting eyes",
+      "text": "Aluminium lifting eyes for easy and efficient handling of the robot.",
+      "position": [
+        5.9,
+        11.1442,
+        -18.2253
+      ],
+      "view": {
+        "position": [
+          53.7499,
+          18.0429,
+          -41.1036
+        ],
+        "target": [
+          5.9,
+          11.1442,
+          -18.2253
+        ]
+      }
+    },
+    {
+      "title": "Rear camera",
+      "text": "An additional navigation camera to provide a reliable video feed even when the robot is reversing.",
+      "position": [
+        0.2283,
+        3.0594,
+        -20.55
+      ],
+      "view": {
+        "position": [
+          12.5441,
+          8.9017,
+          -69.1387
+        ],
+        "target": [
+          0.2283,
+          3.0594,
+          -20.55
+        ]
+      }
+    },
+    {
+      "title": "Breadcrumb track mount",
+      "text": "A sturdy mount for attaching the robot’s breadcrumb track.",
+      "position": [
+        -11.0835,
+        -3.4672,
+        -20.2285
+      ],
+      "view": {
+        "position": [
+          -22.0912,
+          13.4869,
+          -64.4136
+        ],
+        "target": [
+          -11.0835,
+          -3.4672,
+          -20.2285
+        ]
+      }
+    }
+  ]
+}
